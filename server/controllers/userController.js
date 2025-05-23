@@ -18,7 +18,7 @@ export default register = async (req, res) => {
 			email,
 			password: hashedPassword,
 		});
-		const token = jwt.sign({ id: user_id }, process.env.JWT_SECRET, {
+		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
 			expiresIn: "7d",
 		});
 		res.cookie("token", token, {
