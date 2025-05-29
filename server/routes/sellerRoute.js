@@ -8,7 +8,7 @@ import authUser from "../middlewares/authUser.js";
 
 const sellerRouter = express.Router();
 
-sellerRouter.post("/", sellerLogin);
+sellerRouter.post("/login", sellerLogin);
 sellerRouter.get("/is-auth", authUser, isSellerAuth);
 sellerRouter.get("/logout", sellerLogout);
 
