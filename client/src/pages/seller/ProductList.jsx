@@ -26,7 +26,7 @@ const ProductList = () => {
 							</tr>
 						</thead>
 						<tbody className="text-sm text-gray-500">
-							{products.map((product) => (
+							{products?.map((product) => (
 								<tr
 									key={product._id}
 									className="border-t border-gray-500/20">

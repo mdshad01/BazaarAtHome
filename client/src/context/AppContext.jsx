@@ -21,10 +21,9 @@ export const AppContextProvider = ({ children }) => {
 	// Fetch Saller Status
 
 	const fetchSeller = async () => {
-		console.log("Calling fetchSeller...");
 		try {
 			const { data } = await axios.get("/api/seller/is-auth");
-			console.log(data.success);
+			console.log(data);
 			if (data.success) {
 				setIsSeller(true);
 			} else {
@@ -37,7 +36,16 @@ export const AppContextProvider = ({ children }) => {
 
 	// fetch all products
 	const fetchProducts = async () => {
-		setProducts(dummyProducts);
+		try {
+			const { data } = await axios.get("/api/product/list");
+			if (data.success) {
+				setProducts(data.products);
+			} else {
+				toast.error(data.message);
+			}
+		} catch (error) {
+			toast.error(error.message);
+		}
 	};
 
 	/* 
@@ -139,6 +147,7 @@ export const AppContextProvider = ({ children }) => {
 		getCartCount,
 		getCartAmount,
 		axios,
+		fetchProducts,
 	};
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
