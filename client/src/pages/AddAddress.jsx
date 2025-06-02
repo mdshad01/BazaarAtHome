@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
+import { useAppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 // Inpput Feild Component
 const InputFeild = ({ type, placeholder, name, handleChange, address }) => (
 	<input
@@ -14,8 +16,9 @@ const InputFeild = ({ type, placeholder, name, handleChange, address }) => (
 );
 
 const AddAddress = () => {
+	const { axios, navigate, user } = useAppContext();
 	const [address, setAddress] = useState({
-		fristName: "",
+		firstName: "",
 		lastName: "",
 		email: "",
 		street: "",
@@ -37,13 +40,30 @@ const AddAddress = () => {
 	};
 
 	const onSubmitHandler = async (e) => {
-		e.preventDefault();
+		try {
+			e.preventDefault();
+			const { data } = await axios.post("/api/address/add", { address });
+			if (data.success) {
+				toast.success(data.message);
+				navigate("/cart");
+			} else {
+				toast.error(data.message);
+			}
+		} catch (error) {
+			toast.error(error.message);
+		}
 	};
+
+	useEffect(() => {
+		if (!user) {
+			navigate("/cart");
+		}
+	}, [user, navigate]);
+
 	return (
 		<div className="mt-16 pb-16">
 			<p className="text-2xl md:text-3xl text-gray-500">
-				Add Shipping{" "}
-				<span className="font-semibold text-primary">Address</span>
+				Add Shipping <span className="font-semibold text-primary">Address</span>
 			</p>
 			<div className="flex flex-col-reverse md:flex-row justify-between mt-10">
 				<div className="flex-1 max-w-md">
@@ -104,7 +124,7 @@ const AddAddress = () => {
 								address={address}
 								name="zipcode"
 								type="number"
-								placeholder="Zip code"
+								placeholder="Zip Code"
 							/>
 							<InputFeild
 								handleChange={handleChange}

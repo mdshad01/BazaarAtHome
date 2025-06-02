@@ -18,6 +18,7 @@ import SellerLayout from "./pages/seller/SellerLayout";
 import AddProduct from "./pages/seller/AddProduct";
 import ProductList from "./pages/seller/ProductList";
 import Orders from "./pages/seller/Orders";
+import Loading from "./components/Loading";
 const App = () => {
 	const isSellerPath = useLocation().pathname.includes("seller");
 	const { showUserLogin, isSeller } = useAppContext();
@@ -27,10 +28,7 @@ const App = () => {
 			{showUserLogin ? <Login /> : null}
 			<Toaster />
 
-			<div
-				className={`${
-					isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"
-				}`}>
+			<div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
 				<Routes>
 					<Route
 						path="/"
@@ -59,6 +57,10 @@ const App = () => {
 					<Route
 						path="/my-orders"
 						element={<MyOrders />}
+					/>
+					<Route
+						path="/loader"
+						element={<Loading />}
 					/>
 					<Route
 						path="/seller"

@@ -34,6 +34,4 @@ app.use("/api/cart", cartRouter);
 app.use("/api/address", addressRouter);
 app.use("/api/order", orderRouter);
 
-app.listen(port, () =>
-	console.log(`Server is runnning on http://localhost:${port}`)
-);
+app.listen(port, () => console.log(`Server is runnning on http://localhost:${port}`));
