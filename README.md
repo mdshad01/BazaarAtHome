@@ -3,7 +3,7 @@
 A full-featured grocery delivery platform built with the MERN stack, bringing fresh groceries and daily essentials right to your doorstep.
 
 <div align="center">
-<img src="/public/Homepage.png">
+<img src="/client/public/Homepage.png">
 </div>
 
 
